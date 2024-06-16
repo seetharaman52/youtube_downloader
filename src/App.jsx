@@ -27,7 +27,6 @@ function App() {
   const [videoInfo, setVideoInfo] = useState(null)
   const [loading, setLoading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   const [error, setError] = useState('')
   const [isErrorVisible, setIsErrorVisible] = useState(false)
@@ -92,26 +91,7 @@ function App() {
     } finally {
       setIsDownloading(false);
     }
-  };
-  
-  useEffect(() => {
-    console.log(isDownloading);
-    if (isDownloading) {
-      const eventSource = new EventSource('http://localhost:8000/progress');
-      eventSource.onmessage = (event) => {
-        const newProgress = parseFloat(event.data);
-        setProgress(newProgress);
-        console.log(newProgress);
-      };
-      eventSource.onerror = (error) => {
-        console.error('EventSource error:', error);
-        eventSource.close();
-      };
-      return () => {
-        eventSource.close();
-      };
-    }
-  }, [isDownloading]);
+  };  
 
   return (
     <div className="App h-screen flex flex-col items-center">

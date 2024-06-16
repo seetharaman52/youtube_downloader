@@ -1,10 +1,13 @@
 {
-  "homepage":"https://seetharaman52.github.io/youtube_downloader",
+  "homepage": "https://seetharaman52.github.io/youtube_downloader",
   "name": "youtube_downloader",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start:frontend": "react-scripts start",
+    "start:backend": "python server/main.py",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -25,6 +28,7 @@
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",

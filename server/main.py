@@ -5,9 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from urllib.parse import quote
 from hurry.filesize import size
-from sse_starlette.sse import EventSourceResponse
-import time
-import asyncio
 
 app = FastAPI()
 app.add_middleware(
@@ -76,18 +73,6 @@ async def download_video(data: dict):
         print(f"Exception occurred: {exc}")
         raise HTTPException(status_code=500, detail=f"Failed to fetch video: {str(exc)}")
 
-@app.get('/progress')
-async def progress(request: Request):
-    async def event_generator():
-        while True:
-            for i in range(101):
-                yield {
-                    "event": "progress",
-                    "data": f"{i}"
-                }
-                await asyncio.sleep(0.5)
-    print('Inside progress')
-    return EventSourceResponse(event_generator())
 
 if __name__ == '__main__':
     import uvicorn
